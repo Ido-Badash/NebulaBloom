@@ -1,6 +1,6 @@
 import sys
 import logging
-from core import NBloomApp
+from nbloom_app import NBloomApp
 
 def catch_it(func):
     def wrapper(*args, **kwargs):
