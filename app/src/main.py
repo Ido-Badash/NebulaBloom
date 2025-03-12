@@ -1,5 +1,6 @@
 import sys
 import logging
+from core import NBloomApp
 
 def catch_it(func):
     def wrapper(*args, **kwargs):
@@ -19,7 +20,8 @@ def main():
     
     logging.info("Program started")
 
-    # Run app here
+    nbloom_app = NBloomApp()
+    nbloom_app.run()
 
     logging.info("Program ended")
     sys.exit(0)
