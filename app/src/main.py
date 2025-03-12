@@ -1,6 +1,32 @@
 import sys
 import logging
-from nbloom_app import NBloomApp
+from pathlib import Path
+from kivy.app import App
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.lang import Builder
+
+from screens.focus import FocusScreen
+from utils import SafePath, load_builder_files
+
+# Load the KV files
+safe_path = SafePath(Path("app/src/screens"))
+focus_screen_path = "focus/focus_screen.kv"
+all_paths = [focus_screen_path]
+load_builder_files(Builder, safe_path, all_paths)
+
+class MainScreen(Screen):
+    pass
+
+class NBloomSM(ScreenManager):
+    pass
+
+class NBloomApp(App):
+    def build(self):
+        sm = NBloomSM()
+        sm.add_widget(MainScreen(name="main"))
+        sm.add_widget(FocusScreen(name="focus"))
+        return sm
+
 
 def catch_it(func):
     def wrapper(*args, **kwargs):
@@ -20,8 +46,7 @@ def main():
     
     logging.info("Program started")
 
-    nbloom_app = NBloomApp()
-    nbloom_app.run()
+    NBloomApp().run()
 
     logging.info("Program ended")
     sys.exit(0)
